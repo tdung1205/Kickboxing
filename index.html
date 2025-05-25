@@ -118,22 +118,103 @@
 
         .technique-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             margin-top: 20px;
         }
 
         .technique-card {
             background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 12px;
             border-left: 4px solid #667eea;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .technique-card:hover {
             background: #e9ecef;
-            transform: translateX(5px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .technique-media {
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .technique-video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .technique-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .technique-steps {
+            background: #fff;
+            border-left: 3px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .technique-steps h4 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+
+        .technique-tips {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .technique-tips strong {
+            color: #856404;
         }
 
         .workout-plan {
@@ -234,6 +315,63 @@
             border-radius: 2px;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2rem;
@@ -247,6 +385,10 @@
             .container {
                 padding: 10px;
             }
+
+            .technique-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -254,7 +396,7 @@
     <div class="container">
         <header>
             <h1>🥊 Học Kickboxing Tại Nhà</h1>
-            <p>Khóa học toàn diện từ cơ bản đến nâng cao</p>
+            <p>Khóa học toàn diện từ cơ bản đến nâng cao với video hướng dẫn</p>
         </header>
 
         <div class="nav-tabs">
@@ -307,61 +449,163 @@
 
         <!-- Phần Kỹ Thuật -->
         <div id="techniques" class="content-section">
-            <h2 class="section-title">Kỹ Thuật Kickboxing</h2>
+            <h2 class="section-title">Kỹ Thuật Kickboxing với Video Hướng Dẫn</h2>
             
             <div class="technique-grid">
                 <div class="technique-card">
-                    <h3>👊 Đấm Cơ Bản</h3>
-                    <h4>Jab (Đấm thẳng)</h4>
-                    <p>• Đấm tay trước thẳng ra</p>
-                    <p>• Xoay hông nhẹ</p>
-                    <p>• Rút tay nhanh về</p>
+                    <span class="difficulty-badge beginner">Cơ Bản</span>
+                    <h3>👊 Jab - Đấm Thẳng</h3>
                     
-                    <h4>Cross (Đấm chéo)</h4>
-                    <p>• Đấm tay sau với lực</p>
-                    <p>• Xoay hông mạnh</p>
-                    <p>• Đẩy từ chân sau</p>
+                    <div class="technique-media">
+                        <div class="video-placeholder" onclick="openModal('jabModal')">
+                            <div>
+                                ▶️ Video Hướng Dẫn Jab<br>
+                                <small>Click để xem chi tiết</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="technique-steps">
+                        <h4>Các Bước Thực Hiện:</h4>
+                        <p>1. Đứng tư thế guard cơ bản</p>
+                        <p>2. Đấm tay trước thẳng ra phía trước</p>
+                        <p>3. Xoay hông nhẹ theo chiều đấm</p>
+                        <p>4. Rút tay nhanh về vị trí ban đầu</p>
+                    </div>
+                    
+                    <div class="technique-tips">
+                        <strong>💡 Mẹo:</strong> Giữ tay kia che mặt, đừng duỗi thẳng hoàn toàn
+                    </div>
                 </div>
                 
                 <div class="technique-card">
-                    <h3>🦵 Đá Cơ Bản</h3>
-                    <h4>Front Kick (Đá thẳng)</h4>
-                    <p>• Nâng đầu gối cao</p>
-                    <p>• Đá bằng gót chân</p>
-                    <p>• Giữ thăng bằng</p>
+                    <span class="difficulty-badge beginner">Cơ Bản</span>
+                    <h3>👊 Cross - Đấm Chéo</h3>
                     
-                    <h4>Roundhouse Kick (Đá vòng)</h4>
-                    <p>• Xoay hông</p>
-                    <p>• Đá bằng mu bàn chân</p>
-                    <p>• Tay đối diện lên cao</p>
+                    <div class="technique-media">
+                        <div class="video-placeholder" onclick="openModal('crossModal')">
+                            <div>
+                                ▶️ Video Hướng Dẫn Cross<br>
+                                <small>Click để xem chi tiết</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="technique-steps">
+                        <h4>Các Bước Thực Hiện:</h4>
+                        <p>1. Từ tư thế guard</p>
+                        <p>2. Đấm tay sau với lực mạnh</p>
+                        <p>3. Xoay hông và vai theo chiều đấm</p>
+                        <p>4. Đẩy lực từ chân sau lên</p>
+                    </div>
+                    
+                    <div class="technique-tips">
+                        <strong>💡 Mẹo:</strong> Xoay gót chân sau, tạo lực từ toàn thân
+                    </div>
                 </div>
                 
                 <div class="technique-card">
-                    <h3>🛡️ Phòng Thủ</h3>
-                    <h4>Blocking (Chặn)</h4>
-                    <p>• Chặn bằng tay</p>
-                    <p>• Chặn bằng chân</p>
-                    <p>• Giữ guard luôn</p>
+                    <span class="difficulty-badge intermediate">Trung Cấp</span>
+                    <h3>🦵 Front Kick - Đá Thẳng</h3>
                     
-                    <h4>Slipping (Tránh)</h4>
-                    <p>• Di chuyển đầu</p>
-                    <p>• Bước sang bên</p>
-                    <p>• Ducking (cúi đầu)</p>
+                    <div class="technique-media">
+                        <div class="video-placeholder" onclick="openModal('frontKickModal')">
+                            <div>
+                                ▶️ Video Hướng Dẫn Front Kick<br>
+                                <small>Click để xem chi tiết</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="technique-steps">
+                        <h4>Các Bước Thực Hiện:</h4>
+                        <p>1. Nâng đầu gối lên cao</p>
+                        <p>2. Duỗi chân thẳng ra phía trước</p>
+                        <p>3. Đá bằng gót chân hoặc mu bàn chân</p>
+                        <p>4. Rút chân về nhanh</p>
+                    </div>
+                    
+                    <div class="technique-tips">
+                        <strong>💡 Mẹo:</strong> Giữ thăng bằng bằng tay, hướng đầu gối lên trước
+                    </div>
                 </div>
                 
                 <div class="technique-card">
-                    <h3>🔄 Combo Cơ Bản</h3>
-                    <h4>1-2 Combo</h4>
-                    <p>• Jab + Cross</p>
-                    <p>• Nhanh và mạnh</p>
+                    <span class="difficulty-badge intermediate">Trung Cấp</span>
+                    <h3>🦵 Roundhouse Kick - Đá Vòng</h3>
                     
-                    <h4>1-2-3 Combo</h4>
-                    <p>• Jab + Cross + Hook</p>
-                    <p>• Kết hợp mượt mà</p>
+                    <div class="technique-media">
+                        <div class="video-placeholder" onclick="openModal('roundhouseModal')">
+                            <div>
+                                ▶️ Video Hướng Dẫn Roundhouse<br>
+                                <small>Click để xem chi tiết</small>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <h4>Punch-Kick</h4>
-                    <p>• Jab + Roundhouse</p>
-                    <p>• Đa dạng tấn công</p>
+                    <div class="technique-steps">
+                        <h4>Các Bước Thực Hiện:</h4>
+                        <p>1. Nâng đầu gối lên bên</p>
+                        <p>2. Xoay hông và chân trụ</p>
+                        <p>3. Đá vòng bằng mu bàn chân</p>
+                        <p>4. Tay đối diện lên cao để thăng bằng</p>
+                    </div>
+                    
+                    <div class="technique-tips">
+                        <strong>💡 Mẹo:</strong> Xoay toàn thân, đừng chỉ đá bằng chân
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <span class="difficulty-badge beginner">Cơ Bản</span>
+                    <h3>🛡️ Basic Block - Chặn Cơ Bản</h3>
+                    
+                    <div class="technique-media">
+                        <div class="video-placeholder" onclick="openModal('blockModal')">
+                            <div>
+                                ▶️ Video Hướng Dẫn Chặn<br>
+                                <small>Click để xem chi tiết</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="technique-steps">
+                        <h4>Các Bước Thực Hiện:</h4>
+                        <p>1. Giữ tay ở vị trí guard</p>
+                        <p>2. Đưa tay lên chặn đòn cao</p>
+                        <p>3. Chặn đòn thấp bằng cẳng tay</p>
+                        <p>4. Luôn sẵn sàng phản công</p>
+                    </div>
+                    
+                    <div class="technique-tips">
+                        <strong>💡 Mẹo:</strong> Không đưa tay quá xa khỏi cơ thể
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <span class="difficulty-badge advanced">Nâng Cao</span>
+                    <h3>🔄 1-2-3 Combo</h3>
+                    
+                    <div class="technique-media">
+                        <div class="video-placeholder" onclick="openModal('comboModal')">
+                            <div>
+                                ▶️ Video Hướng Dẫn Combo<br>
+                                <small>Jab + Cross + Hook</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="technique-steps">
+                        <h4>Chuỗi Kỹ Thuật:</h4>
+                        <p>1. Jab (đấm thẳng tay trước)</p>
+                        <p>2. Cross (đấm chéo tay sau)</p>
+                        <p>3. Hook (đấm móc tay trước)</p>
+                        <p>4. Kết hợp liền mạch, không ngừng</p>
+                    </div>
+                    
+                    <div class="technique-tips">
+                        <strong>💡 Mẹo:</strong> Luyện từng động tác riêng trước khi kết hợp
+                    </div>
                 </div>
             </div>
         </div>
@@ -491,6 +735,180 @@
         </div>
     </div>
 
+    <!-- Modal cho Jab -->
+    <div id="jabModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('jabModal')">&times;</span>
+            <h2>👊 Jab - Đấm Thẳng</h2>
+            <div class="technique-media">
+                <div style="background: linear-gradient(45deg, #667eea, #764ba2); height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎥</div>
+                        <p>Video demo: Jab technique</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Hướng dẫn chi tiết từng bước</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Chi Tiết Kỹ Thuật:</h3>
+                <div class="technique-steps">
+                    <p><strong>Bước 1:</strong> Đứng tư thế guard - chân trái trước (với người thuận tay phải)</p>
+                    <p><strong>Bước 2:</strong> Đấm tay trái thẳng ra, xoay cổ tay khi tiếp xúc</p>
+                    <p><strong>Bước 3:</strong> Vai trái đẩy về phía trước, hông xoay nhẹ</p>
+                    <p><strong>Bước 4:</strong> Rút tay về ngay lập tức về vị trí guard</p>
+                </div>
+                <div class="technique-tips">
+                    <strong>⚠️ Lưu ý:</strong> Không duỗi thẳng hoàn toàn để tránh chấn thương khớp khuỷu
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho Cross -->
+    <div id="crossModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('crossModal')">&times;</span>
+            <h2>👊 Cross - Đấm Chéo</h2>
+            <div class="technique-media">
+                <div style="background: linear-gradient(45deg, #ff6b6b, #ff9a56); height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎥</div>
+                        <p>Video demo: Cross technique</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Kỹ thuật tạo lực mạnh nhất</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Chi Tiết Kỹ Thuật:</h3>
+                <div class="technique-steps">
+                    <p><strong>Bước 1:</strong> Từ tư thế guard, chuẩn bị đấm tay phải</p>
+                    <p><strong>Bước 2:</strong> Xoay hông và vai phải mạnh về phía trước</p>
+                    <p><strong>Bước 3:</strong> Đẩy lực từ chân phải, xoay gót chân</p>
+                    <p><strong>Bước 4:</strong> Đấm thẳng qua người, xoay cổ tay khi chạm đích</p>
+                </div>
+                <div class="technique-tips">
+                    <strong>💪 Bí quyết:</strong> Sử dụng toàn thân để tạo lực, không chỉ cánh tay
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho Front Kick -->
+    <div id="frontKickModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('frontKickModal')">&times;</span>
+            <h2>🦵 Front Kick - Đá Thẳng</h2>
+            <div class="technique-media">
+                <div style="background: linear-gradient(45deg, #4caf50, #81c784); height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎥</div>
+                        <p>Video demo: Front Kick technique</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Đá mạnh và chính xác</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Chi Tiết Kỹ Thuật:</h3>
+                <div class="technique-steps">
+                    <p><strong>Bước 1:</strong> Nâng đầu gối chân trước lên cao</p>
+                    <p><strong>Bước 2:</strong> Giữ thăng bằng trên chân trụ</p>
+                    <p><strong>Bước 3:</strong> Duỗi chân thẳng ra, đá bằng gót hoặc mu bàn chân</p>
+                    <p><strong>Bước 4:</strong> Rút chân về nhanh, đặt xuống hoặc tiếp tục combo</p>
+                </div>
+                <div class="technique-tips">
+                    <strong>⚖️ Thăng bằng:</strong> Giữ tay để cân bằng, nhìn thẳng về phía trước
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho Roundhouse -->
+    <div id="roundhouseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('roundhouseModal')">&times;</span>
+            <h2>🦵 Roundhouse Kick - Đá Vòng</h2>
+            <div class="technique-media">
+                <div style="background: linear-gradient(45deg, #2196f3, #64b5f6); height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎥</div>
+                        <p>Video demo: Roundhouse Kick</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Kỹ thuật đá vòng mạnh mẽ</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Chi Tiết Kỹ Thuật:</h3>
+                <div class="technique-steps">
+                    <p><strong>Bước 1:</strong> Nâng đầu gối lên bên, không phải lên trước</p>
+                    <p><strong>Bước 2:</strong> Xoay chân trụ 180 độ</p>
+                    <p><strong>Bước 3:</strong> Xoay hông theo chiều đá</p>
+                    <p><strong>Bước 4:</strong> Đá vòng bằng mu bàn chân hoặc ống quyển</p>
+                </div>
+                <div class="technique-tips">
+                    <strong>🌪️ Xoay toàn thân:</strong> Lực đá đến từ việc xoay toàn bộ cơ thể
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho Block -->
+    <div id="blockModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('blockModal')">&times;</span>
+            <h2>🛡️ Basic Block - Chặn Cơ Bản</h2>
+            <div class="technique-media">
+                <div style="background: linear-gradient(45deg, #9c27b0, #ba68c8); height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎥</div>
+                        <p>Video demo: Blocking techniques</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Phòng thủ hiệu quả</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Các Loại Chặn:</h3>
+                <div class="technique-steps">
+                    <p><strong>High Block:</strong> Chặn đòn đấm cao bằng cẳng tay</p>
+                    <p><strong>Low Block:</strong> Chặn đá thấp bằng cẳng tay hạ xuống</p>
+                    <p><strong>Inside Block:</strong> Chặn từ trong ra ngoài</p>
+                    <p><strong>Outside Block:</strong> Chặn từ ngoài vào trong</p>
+                </div>
+                <div class="technique-tips">
+                    <strong>🔄 Phản công:</strong> Sau khi chặn, lập tức tấn công ngược lại
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho Combo -->
+    <div id="comboModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('comboModal')">&times;</span>
+            <h2>🔄 1-2-3 Combo</h2>
+            <div class="technique-media">
+                <div style="background: linear-gradient(45deg, #ff5722, #ff8a65); height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎥</div>
+                        <p>Video demo: 1-2-3 Combination</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Chuỗi đấm liên hoài</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Chuỗi Động Tác:</h3>
+                <div class="technique-steps">
+                    <p><strong>1 - Jab:</strong> Đấm thẳng tay trái nhanh</p>
+                    <p><strong>2 - Cross:</strong> Đấm chéo tay phải mạnh</p>
+                    <p><strong>3 - Hook:</strong> Đấm móc tay trái</p>
+                    <p><strong>Flow:</strong> Không dừng giữa các động tác</p>
+                </div>
+                <div class="technique-tips">
+                    <strong>🎵 Nhịp điệu:</strong> Luyện với nhịp 1-2-3, 1-2-3 đều đặn
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let timerInterval;
         let timeLeft = 180; // 3 minutes default
@@ -523,6 +941,24 @@
             
             // Add active class to clicked tab
             event.target.classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
         }
 
         function formatTime(seconds) {
@@ -600,6 +1036,27 @@
         // Initialize
         updateDisplay();
         updateProgressDisplay();
+
+        // Add keyboard shortcuts for better user experience
+        document.addEventListener('keydown', function(event) {
+            // Press Space to start/pause timer
+            if (event.code === 'Space' && event.target.tagName !== 'INPUT') {
+                event.preventDefault();
+                if (isRunning) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+            }
+            
+            // Press Escape to close modals
+            if (event.code === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
     </script>
 </body>
 </html>
